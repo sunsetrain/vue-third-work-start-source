@@ -35,11 +35,4 @@ install_template_dependencies:
 	cd template; echo "...Installing template dependencies" && \
 	npm ci
 
-install_root_dependencies:
-	npm ci; echo "...Installing root dependencies"
-
-install_dependencies: install_backend_dependencies install_frontend_dependencies install_template_dependencies install_root_dependencies
-
-format_frontend:
-	cd frontend && \
-	npm run format
+install_dependencies: install_backend_dependencies install_frontend_dependencies install_template_dependencies
