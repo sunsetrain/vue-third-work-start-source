@@ -1,5 +1,5 @@
-import { emailRegex, urlRegex } from './constants';
-import { isRef } from 'vue';
+import { emailRegex, urlRegex } from './constants'
+import { isRef } from 'vue'
 
 const rules = {
 	required: {
@@ -18,7 +18,7 @@ const rules = {
 				? emailRegex.test(String(value).toLowerCase())
 				: true
 		},
-		message: 'Электронная почта имеет неверный формат'
+		message: 'Электроная почта имеет неверный формат'
 	},
 	url: {
 		rule: value => {
@@ -29,41 +29,48 @@ const rules = {
 		},
 		message: 'Ссылка имеет неверный формат'
 	}
-};
+}
+
+/**
+ * @param { String } value
+ * @param { String[] } appliedRules
+ * @returns {string}
+ */
 
 const validate = (value, appliedRules) => {
-    let error = '';
-    appliedRules.forEach(appliedRule => {
-      if (!rules[appliedRule]) {
-        return;
-      }
-      const { rule, message } = rules[appliedRule];
-      if (!rule(value)) {
-        error = message;
-      }
-    });
-    return error;
-  };
+	let error = ''
+	appliedRules.forEach(appliedRule => {
+		if (!rules[appliedRule]) {
+			return
+		}
+		const { rule, message } = rules[appliedRule]
+		if (!rule(value)) {
+			error = message
+		}
+	})
+	return error
+}
 
 export const validateFields = (fields, validations) => {
-	let isValid = true;
+	let isValid = true
 	Object.keys(validations).forEach(key => {
 		validations[key].error = validate(
 			fields[key],
 			validations[key].rules
-		);
+		)
 		if (validations[key].error) {
-			isValid = false;
+			isValid = false
 		}
-	});
-	return isValid;
-};
+	})
+	return isValid
+}
 
 export const clearValidationErrors = (validations) => {
+	console.log('validate')
 	if (!validations) {
-		return;
+		return
 	}
 	Object.keys(validations).forEach(key => {
 		validations[key].error = ''
-	});
-};
+	})
+}
